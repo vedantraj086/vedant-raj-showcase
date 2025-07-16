@@ -48,27 +48,35 @@ const Achievements = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {achievements.map((achievement, index) => (
-            <Card 
-              key={achievement.title}
-              className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 bg-gradient-card border-primary/20"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader>
-                <div className="p-3 bg-primary/10 rounded-full w-fit mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                  <achievement.icon className="w-8 h-8 text-primary" />
-                </div>
-                <CardTitle className="text-lg text-center group-hover:text-primary transition-colors">
-                  {achievement.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-center leading-relaxed">
-                  {achievement.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          {achievements.map((achievement, index) => {
+            const gradients = ['bg-gradient-primary', 'bg-gradient-secondary', 'bg-gradient-accent', 'bg-gradient-success', 'bg-gradient-warning'];
+            const currentGradient = gradients[index % gradients.length];
+            
+            return (
+              <Card 
+                key={achievement.title}
+                className="group hover-lift hover:shadow-glow bg-gradient-card border-primary/20 animate-slide-up cursor-pointer overflow-hidden relative"
+                style={{ animationDelay: `${index * 0.15}s` }}
+                onMouseEnter={(e) => e.currentTarget.classList.add('animate-pulse-color')}
+                onMouseLeave={(e) => e.currentTarget.classList.remove('animate-pulse-color')}
+              >
+                <div className="absolute inset-0 bg-gradient-x opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <CardHeader className="relative z-10">
+                  <div className={`p-4 rounded-full w-fit mx-auto mb-4 transition-all duration-300 group-hover:scale-110 group-hover:animate-float ${currentGradient}`}>
+                    <achievement.icon className="w-8 h-8 text-white drop-shadow-lg" />
+                  </div>
+                  <CardTitle className="text-lg text-center group-hover:text-primary transition-colors font-bold">
+                    {achievement.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="relative z-10">
+                  <p className="text-muted-foreground text-center leading-relaxed">
+                    {achievement.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

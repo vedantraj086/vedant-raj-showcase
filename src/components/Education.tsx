@@ -43,25 +43,29 @@ const Education = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
-            {education.map((edu, index) => (
-              <Card 
-                key={edu.degree}
-                className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 bg-gradient-card border-primary/20"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <GraduationCap className="w-8 h-8 text-primary" />
-                    </div>
+            <div className="space-y-6">
+            {education.map((edu, index) => {
+              const gradients = ['bg-gradient-accent', 'bg-gradient-warning', 'bg-gradient-success'];
+              const currentGradient = gradients[index % gradients.length];
+              
+              return (
+                <Card 
+                  key={edu.degree}
+                  className="group hover-lift hover:shadow-colorful bg-gradient-card border-accent/20 animate-slide-up cursor-pointer"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className={`p-4 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${currentGradient}`}>
+                        <GraduationCap className="w-8 h-8 text-white drop-shadow-lg" />
+                      </div>
                     <div className="flex-1">
                       <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
                         <CardTitle className="text-xl group-hover:text-primary transition-colors">
                           {edu.degree}
                         </CardTitle>
                         {edu.current && (
-                          <Badge variant="default" className="bg-primary text-primary-foreground">
+                          <Badge variant="default" className="bg-gradient-primary text-white border-0 animate-pulse-color">
                             Current
                           </Badge>
                         )}
@@ -87,13 +91,14 @@ const Education = () => {
                     <span className="font-semibold text-foreground">
                       {edu.cgpa ? 'CGPA:' : 'Percentage:'}
                     </span>
-                    <Badge variant="secondary" className="font-bold">
+                    <Badge variant="secondary" className="font-bold hover:scale-105 transition-transform cursor-pointer">
                       {edu.cgpa || edu.percentage}
                     </Badge>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>

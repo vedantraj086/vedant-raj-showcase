@@ -56,17 +56,23 @@ const Projects = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <Card 
-              key={project.title}
-              className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 bg-card border-primary/20 h-full"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader>
-                <div className="flex items-start gap-4 mb-3">
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                    <project.icon className="w-6 h-6 text-primary" />
-                  </div>
+          {projects.map((project, index) => {
+            const gradients = ['bg-gradient-primary', 'bg-gradient-secondary', 'bg-gradient-accent'];
+            const currentGradient = gradients[index % gradients.length];
+            
+            return (
+              <Card 
+                key={project.title}
+                className="group hover-lift hover:shadow-colorful bg-gradient-card border-primary/20 h-full animate-fade-in cursor-pointer overflow-hidden"
+                style={{ animationDelay: `${index * 0.2}s` }}
+                onMouseEnter={(e) => e.currentTarget.classList.add('animate-pulse-color')}
+                onMouseLeave={(e) => e.currentTarget.classList.remove('animate-pulse-color')}
+              >
+                <CardHeader>
+                  <div className="flex items-start gap-4 mb-3">
+                    <div className={`p-4 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${currentGradient}`}>
+                      <project.icon className="w-6 h-6 text-white drop-shadow-lg" />
+                    </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4" />
                     {project.date}
@@ -96,11 +102,12 @@ const Projects = () => {
                   <div>
                     <h4 className="font-semibold mb-2 text-foreground">Technologies:</h4>
                     <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
+                      {project.technologies.map((tech, techIndex) => (
                         <Badge 
                           key={tech} 
                           variant="secondary"
-                          className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors"
+                          className="text-xs hover:bg-secondary hover:text-secondary-foreground transition-all duration-300 hover:scale-105 animate-bounce-in cursor-pointer"
+                          style={{ animationDelay: `${(index * 0.2) + (techIndex * 0.1)}s` }}
                         >
                           {tech}
                         </Badge>
@@ -109,8 +116,9 @@ const Projects = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -16,11 +16,11 @@ const Experience = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <Card className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 bg-gradient-card border-primary/20">
+          <Card className="group hover-lift hover:shadow-success bg-gradient-card border-success/20 animate-bounce-in cursor-pointer">
             <CardHeader>
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                  <Heart className="w-8 h-8 text-primary" />
+                <div className="p-4 bg-gradient-success rounded-full transition-all duration-300 group-hover:scale-110 group-hover:animate-pulse-color">
+                  <Heart className="w-8 h-8 text-white drop-shadow-lg" />
                 </div>
                 <div className="flex-1">
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors mb-2">
@@ -36,7 +36,7 @@ const Experience = () => {
                       June 2023
                     </div>
                   </div>
-                  <Badge variant="secondary" className="mb-4">
+                  <Badge variant="secondary" className="mb-4 bg-gradient-success text-white border-0 hover:scale-105 transition-transform">
                     Social Impact
                   </Badge>
                 </div>

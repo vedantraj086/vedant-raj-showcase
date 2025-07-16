@@ -39,35 +39,45 @@ const Skills = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category, index) => (
-            <Card 
-              key={category.title} 
-              className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 bg-gradient-card border-primary/20"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader className="text-center">
-                <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit group-hover:bg-primary/20 transition-colors">
-                  <category.icon className="w-8 h-8 text-primary" />
-                </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  {category.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {category.skills.map((skill) => (
-                    <Badge 
-                      key={skill} 
-                      variant="secondary" 
-                      className="hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {skillCategories.map((category, index) => {
+            const gradients = ['bg-gradient-primary', 'bg-gradient-secondary', 'bg-gradient-accent', 'bg-gradient-success'];
+            const shadows = ['shadow-elegant', 'shadow-colorful', 'shadow-success', 'shadow-glow'];
+            const currentGradient = gradients[index % gradients.length];
+            const currentShadow = shadows[index % shadows.length];
+            
+            return (
+              <Card 
+                key={category.title} 
+                className={`group hover-lift hover:${currentShadow} bg-gradient-card border-primary/20 animate-bounce-in cursor-pointer`}
+                style={{ animationDelay: `${index * 0.15}s` }}
+                onMouseEnter={(e) => e.currentTarget.classList.add('wiggle')}
+                onAnimationEnd={(e) => e.currentTarget.classList.remove('wiggle')}
+              >
+                <CardHeader className="text-center">
+                  <div className={`mx-auto mb-4 p-4 rounded-full w-fit transition-all duration-300 group-hover:scale-110 ${currentGradient} group-hover:animate-pulse-color`}>
+                    <category.icon className="w-8 h-8 text-white drop-shadow-lg" />
+                  </div>
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors font-bold">
+                    {category.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {category.skills.map((skill, skillIndex) => (
+                      <Badge 
+                        key={skill} 
+                        variant="secondary" 
+                        className="hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-105 cursor-pointer animate-fade-in"
+                        style={{ animationDelay: `${(index * 0.15) + (skillIndex * 0.05)}s` }}
+                      >
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

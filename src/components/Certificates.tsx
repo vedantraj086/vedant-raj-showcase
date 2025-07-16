@@ -37,21 +37,27 @@ const Certificates = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certificates.map((cert, index) => (
-            <Card 
-              key={cert.title}
-              className="group hover:shadow-elegant transition-all duration-300 hover:-translate-y-2 bg-card border-primary/20"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardHeader>
-                <div className="flex items-start gap-4 mb-3">
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                    <Award className="w-6 h-6 text-primary" />
+          {certificates.map((cert, index) => {
+            const gradients = ['bg-gradient-warning', 'bg-gradient-accent', 'bg-gradient-success'];
+            const currentGradient = gradients[index % gradients.length];
+            
+            return (
+              <Card 
+                key={cert.title}
+                className="group hover-lift hover:shadow-colorful bg-gradient-card border-warning/20 animate-bounce-in cursor-pointer"
+                style={{ animationDelay: `${index * 0.2}s` }}
+                onMouseEnter={(e) => e.currentTarget.classList.add('animate-wiggle')}
+                onAnimationEnd={(e) => e.currentTarget.classList.remove('animate-wiggle')}
+              >
+                <CardHeader>
+                  <div className="flex items-start gap-4 mb-3">
+                    <div className={`p-4 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${currentGradient}`}>
+                      <Award className="w-6 h-6 text-white drop-shadow-lg" />
+                    </div>
+                    <Badge variant="secondary" className="text-xs bg-gradient-secondary text-white border-0 hover:scale-105 transition-transform">
+                      {cert.type}
+                    </Badge>
                   </div>
-                  <Badge variant="secondary" className="text-xs">
-                    {cert.type}
-                  </Badge>
-                </div>
                 <CardTitle className="text-lg group-hover:text-primary transition-colors leading-tight">
                   {cert.title}
                 </CardTitle>
@@ -68,8 +74,9 @@ const Certificates = () => {
                   </div>
                 </div>
               </CardContent>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
