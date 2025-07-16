@@ -16,7 +16,7 @@ const Hero = () => {
             Vedant Raj
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Computer Science Engineering Student & Software Developer
+            AI ML Software Developer
           </p>
           <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto">
             Passionate about building innovative solutions with expertise in machine learning, 
